@@ -1,12 +1,12 @@
 
-import os
+import os, time
 import logging
 from model.file import *
 
 class directory(object):
 
     def __init__(self, path):
-        self.path   = path
+        self._path   = path
         self._subDirAll = []
         self._subDir    = []
         self._filesAll  = []
@@ -14,7 +14,10 @@ class directory(object):
         self._sizeAll   = 0
         self._size      = 0
 
-
+    @property
+    def path(self):
+        return self._path
+        
     @property
     def files(self):
         for x in os.listdir(self.path):
@@ -50,10 +53,6 @@ class directory(object):
                 self._subDirAll += directory(curPath).subDirAll
         return self._subDirAll
 
-    @subDirAll.setter
-    def subDirAll(self, tarList):
-        self._subDirAll = tarList
-
     @property
     def size(self):
         for x in self.files:
@@ -65,3 +64,59 @@ class directory(object):
         for x in self.filesAll:
             self._sizeAll += file(x).size
         return self._sizeAll
+
+    def classFiles(self, prop):
+        d = {}
+        target = self.files
+        if prop == 'type':
+            for f in target:
+                fi = file(f)
+                key = fi.type
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+        elif prop == 'ext':
+            for f in target:
+                fi = file(f)
+                key = fi.ext
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+        elif prop == 'month':
+            for f in target:
+                fi = file(f)
+                t = time.strftime("%Y-%m", time.localtime(fi.created_at))
+                key = t
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+
+        return d
+
+    def classFilesAll(self, prop):
+        d = {}
+        target = self.filesAll
+        if prop == 'type':
+            for f in target:
+                fi = file(f)
+                key = fi.type
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+        elif prop == 'ext':
+            for f in target:
+                fi = file(f)
+                key = fi.ext
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+        elif prop == 'month':
+            for f in target:
+                fi = file(f)
+                t = time.strftime("%Y-%m", time.localtime(fi.created_at))
+                key = t
+                tmp = d.get(key, [])
+                tmp.append(fi.path)
+                d[key] = tmp
+
+        return d

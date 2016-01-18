@@ -1,41 +1,39 @@
 
-import os, time
+import os, shutil, time
 import logging
 
 class file(object):
 
     def __init__(self, path):
-        self.path = path
-        self._ext = '';
-        self._created_at = '';
-        self._updated_at = '';
-        self._accessed_at = '';
-        self._type = '';
+        self._path = path
+
+    @property
+    def path(self):
+        return self._path
 
     @property
     def ext(self):
-        self._ext = os.path.splitext(self.path)[1]
-        return self._ext
+        return os.path.splitext(self.path)[1]
 
     @property
     def created_at(self):
-        self._created_at = os.path.getctime(self.path)
-        return self._created_at
+        return os.path.getctime(self.path)
 
     @property
     def updated_at(self):
-        self._updated_at = os.path.getmtime(self.path)
-        return self._updated_at
+        return os.path.getmtime(self.path)
 
     @property
     def accessed_at(self):
-        self._accessed_at = os.path.getatime(self.path)
-        return self._accessed_at
+        return os.path.getatime(self.path)
 
     @property
     def size(self):
-        self._size = os.path.getsize(self.path)
-        return self._size
+        return os.path.getsize(self.path)
+
+    @property
+    def name(self):
+        return os.path.split(self.path)[1]
 
     @property
     def isPic(self):
@@ -52,3 +50,31 @@ class file(object):
     @property
     def isAudio(self):
         return self.ext in ['.mp3','.wma','.flac','.ape','.wav','.ogg']
+
+    @property
+    def type(self):
+        if self.isPic:
+            return 'pic'
+        elif self.isAudio:
+            return 'audio'
+        elif self.isVideo:
+            return 'video'
+        elif self.isOfficeDoc:
+            return 'office'
+        else:
+            return 'other'
+
+    def move(self, newPath):
+        toExt = os.path.split(newPath)[1]
+        if toExt == self.ext:
+            path = newPath
+        elif os.path.exists(newPath):
+            path = os.path.join(newPath, self.name)
+        else:
+            os.mkdir(newPath)
+            path = os.path.join(newPath, self.name)
+
+        shutil.move(self.path, path)
+
+    def rename(self, name):
+        os.rename(self.name, name)
