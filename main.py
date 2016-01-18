@@ -5,16 +5,18 @@ import logging
 from tkinter import filedialog
 from model.directory import *
 from model.file import *
+from view.main import *
 
 logging.basicConfig(level=logging.INFO)
 
 targetDirectory = filedialog.askdirectory()
 target = directory(targetDirectory)
 
-# dictExt={}
-# for f in target.files:
-#     tf = file(f)
-#     logging.info(tf.ext)
-#     dictExt[tf.ext] = tf.created_at
+logging.info(target.classFilesAll('month'))
 
-logging.info(target.sizeAll)
+
+# app = main()
+# # 设置窗口标题:
+# app.master.title('Hello World')
+# # 主消息循环:
+# app.mainloop()
