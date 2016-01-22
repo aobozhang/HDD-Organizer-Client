@@ -45,7 +45,7 @@ class file(object):
 
     @property
     def isVideo(self):
-        return self.ext in ['.mp4','.mpg','.mpeg','.avi','.m4v','.mkv','.wmv','.asf','.flv','.mov','.m4v']
+        return self.ext in ['.mp4','.mpg','.mpeg','.avi','.m4v','.mkv','.wmv','.asf','.flv','.mov','.m4v','.rm','.rmvb']
 
     @property
     def isAudio(self):
