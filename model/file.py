@@ -13,7 +13,9 @@ class file(object):
 
     @property
     def ext(self):
-        return os.path.splitext(self.path)[1]
+        ori = os.path.splitext(self.path)[1]
+        new = ori.replace( '.' , '' , 1)
+        return new
 
     @property
     def created_at(self):
@@ -37,19 +39,19 @@ class file(object):
 
     @property
     def isPic(self):
-        return self.ext in ['.bmp','.jpg','.jpeg','.png','.svg','.gif','.webp']
+        return self.ext in ['bmp','jpg','jpeg','png','svg','gif','webp']
 
     @property
     def isOfficeDoc(self):
-        return self.ext in ['.doc','.docx','.xls','.xlsx','.ppt','.pptx']
+        return self.ext in ['doc','docx','xls','xlsx','ppt','pptx']
 
     @property
     def isVideo(self):
-        return self.ext in ['.mp4','.mpg','.mpeg','.avi','.m4v','.mkv','.wmv','.asf','.flv','.mov','.m4v','.rm','.rmvb']
+        return self.ext in ['mp4','mpg','mpeg','avi','m4v','mkv','wmv','asf','flv','mov','m4v','rm','rmvb']
 
     @property
     def isAudio(self):
-        return self.ext in ['.mp3','.wma','.flac','.ape','.wav','.ogg']
+        return self.ext in ['mp3','wma','flac','ape','wav','ogg']
 
     @property
     def type(self):

@@ -120,3 +120,21 @@ class directory(object):
                 d[key] = tmp
 
         return d
+
+    def OrganizeFiles(self, ogzType):
+        for k, v in self.classFiles(ogzType).items():
+            if not k == '':
+                kpath = os.path.join(self.path, k)
+                if not os.path.exists(kpath):
+                    os.mkdir(kpath)
+                for f in v:
+                    file.file(f).move(kpath)
+
+    def OrganizeFilesAll(self, ogzType):
+        for k, v in self.classFilesAll(ogzType).items():
+            if not k == '':
+                kpath = os.path.join(self.path, k)
+                if not os.path.exists(kpath):
+                    os.mkdir(kpath)
+                for f in v:
+                    file.file(f).move(kpath)
