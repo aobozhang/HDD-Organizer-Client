@@ -1,13 +1,14 @@
 import os
 import logging
-from tkinter import filedialog
+from Tkinter import *
+from tkFileDialog import *
+from tkMessageBox import *
 from model.directory import *
 from model.file import *
 
 logging.basicConfig(level=logging.INFO)
 
-targetDirectory = filedialog.askdirectory()
-
+targetDirectory = askdirectory()
 logging.info('# Path : ', targetDirectory)
 
 target = directory(targetDirectory)

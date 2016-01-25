@@ -1,0 +1,30 @@
+{% extends "_layout.html" %}
+{% block body %}
+<div class="container">
+<div class="page-header">
+    <h1>File List Category</h1>
+</div>
+<table class="table table-striped">
+    <th> Category </th>
+    <th> File </th>
+
+    {% for k,v in entries %}
+
+        {% for entrie in v %}
+        <tr>
+            <td>{{ k }}</td>
+            <td>{{ entrie.decode("utf-8") }}</td>
+        </tr>
+        {% else %}
+            <th><em>Unbelievable.  No entries here so far</em></th>
+        {% endfor %}
+
+    {% else %}
+
+        <th><em>Unbelievable.  No entries here so far</em></th>
+
+    {% endfor %}
+
+</table>
+</div>
+{% endblock %}
