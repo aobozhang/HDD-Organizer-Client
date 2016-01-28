@@ -43,7 +43,7 @@ class file(object):
 
     @property
     def isOfficeDoc(self):
-        return self.ext in ['doc','docx','xls','xlsx','ppt','pptx']
+        return self.ext in ['doc','docx','xls','xlsx','ppt','pptx','txt']
 
     @property
     def isVideo(self):
@@ -54,17 +54,23 @@ class file(object):
         return self.ext in ['mp3','wma','flac','ape','wav','ogg']
 
     @property
+    def isCompress(self):
+        return self.ext.lower() in ['rar','zip','7z','gz','tgz','egg','cab','rpm','xar','dmg']
+
+    @property
     def type(self):
         if self.isPic:
-            return 'pic'
+            return 'Pictures'
         elif self.isAudio:
-            return 'audio'
+            return 'Audios'
         elif self.isVideo:
-            return 'video'
+            return 'Videos'
         elif self.isOfficeDoc:
-            return 'office'
+            return 'Documents'
+        elif self.isCompress:
+            return 'Compress'
         else:
-            return 'other'
+            return 'Others'
 
     def move(self, newPath):
         toExt = os.path.split(newPath)[1]
